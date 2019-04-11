@@ -43,7 +43,7 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
     }
 
     public void show(OnClickListener clickListener){
-        initPopupView();
+        checkPopupView();
         mPopupItemListener = clickListener;
         setItemClickListener();
         showView();
@@ -151,9 +151,10 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
     /**
      * 若没有设置popupView，则用默认布局初始化
      */
-    private void initPopupView(){
+    private void checkPopupView(){
         if (mPopupView == null){
-            mPopupView = LayoutInflater.from(mContext).inflate(R.layout.view_content_float,null);
+            throw new NullPointerException("请先调用 setPopupView 初始化popupView");
+//            mPopupView = LayoutInflater.from(mContext).inflate(R.layout.view_content_float,null);
         }
     }
 
