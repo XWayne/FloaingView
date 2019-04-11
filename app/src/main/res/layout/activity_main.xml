@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.examplevoice.administrator.recordpushdemo.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@drawable/icon_float"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="START"
+        android:onClick="onStartClick"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STOP"
+        android:onClick="onStopClick"
+        app:layout_constraintLeft_toRightOf="@id/start"
+        app:layout_constraintTop_toTopOf="@id/start"/>
+    <Button
+        android:id="@+id/mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mute"
+        android:onClick="onMuteClick"
+        app:layout_constraintLeft_toRightOf="@id/stop"
+        app:layout_constraintTop_toTopOf="@id/stop"/>
+
+
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pause"
+        android:onClick="onPauseClick"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start" />
+
+    <Button
+        android:id="@+id/SD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标清"
+        android:onClick="onSDClick"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pause" />
+    <Button
+        android:id="@+id/HD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="高清"
+        android:onClick="onHDClick"
+        app:layout_constraintLeft_toRightOf ="@id/SD"
+        app:layout_constraintTop_toTopOf="@id/SD" />
+    <Button
+        android:id="@+id/FHD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="超清"
+        android:onClick="onFHDClick"
+        app:layout_constraintLeft_toRightOf="@id/HD"
+        app:layout_constraintTop_toTopOf="@id/HD" />
+    <Button
+        android:id="@+id/floating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show"
+        android:onClick="floatingCheck"
+        app:layout_constraintLeft_toLeftOf="@id/SD"
+        app:layout_constraintTop_toBottomOf="@id/SD"/>
+</android.support.constraint.ConstraintLayout>

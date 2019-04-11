@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bgn_background"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp">
+
+    <ImageView
+        android:id="@+id/btn_screen"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_control"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tv_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="投屏"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_screen"
+        app:layout_constraintLeft_toLeftOf="@id/btn_screen"
+        app:layout_constraintRight_toRightOf="@id/btn_screen"
+        />
+
+    <ImageView
+        android:id="@+id/btn_name"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_name"
+        android:layout_marginStart="28dp"
+        app:layout_constraintLeft_toRightOf="@id/btn_screen"
+        app:layout_constraintTop_toTopOf="@id/btn_screen"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点名"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_name"
+        app:layout_constraintLeft_toLeftOf="@id/btn_name"
+        app:layout_constraintRight_toRightOf="@id/btn_name"
+        />
+
+</android.support.constraint.ConstraintLayout>
