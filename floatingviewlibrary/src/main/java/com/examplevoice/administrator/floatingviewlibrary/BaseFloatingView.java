@@ -32,6 +32,7 @@ public abstract class BaseFloatingView extends FrameLayout implements GestureDet
     protected Context mContext;
     private float mLastX;
     private float mLastY;
+    private boolean showing = false;
 
     public BaseFloatingView(Context context){
         super(context);
@@ -50,7 +51,6 @@ public abstract class BaseFloatingView extends FrameLayout implements GestureDet
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //        if (event.getAction() == MotionEvent.ACTION_OUTSIDE){
-//            Log.d("John","ACTION_OUTSIDE:"+System.currentTimeMillis());
 //        }
         return mGestureDetector.onTouchEvent(event); //默认不消费事件
     }
@@ -103,6 +103,10 @@ public abstract class BaseFloatingView extends FrameLayout implements GestureDet
     }
 
     protected void showView(){
+        if (showing){
+            return;
+        }
+
         if (permissionGranted()){
             if (mWindowManager ==null){
                 // 获取WindowManager服务
@@ -122,19 +126,24 @@ public abstract class BaseFloatingView extends FrameLayout implements GestureDet
                 mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                         |WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
                 mLayoutParams.format = PixelFormat.TRANSLUCENT;
-                mLayoutParams.gravity= Gravity.TOP|Gravity.END;
+//                mLayoutParams.gravity= Gravity.TOP|Gravity.END;
             }
 
             // 将悬浮窗控件添加到WindowManager
             this.setVisibility(VISIBLE);
             mWindowManager.addView(this, mLayoutParams);
+            showing = true;
         }
 
     }
 
     protected void hideView(){
+        if (!showing){
+            return;
+        }
         if (mWindowManager!=null){
             mWindowManager.removeViewImmediate(this);
+            showing = false;
         }
     }
 
@@ -151,6 +160,7 @@ public abstract class BaseFloatingView extends FrameLayout implements GestureDet
 
     protected void onLongClick(){} //空实现
 
-
-
+    public boolean isShowing() {
+        return showing;
+    }
 }

@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements ITXLivePushListen
 
     TXLivePusher mPusher ;
     TXLivePushConfig mConfig;
-    String mPushUrl="rtmp://3891.livepush.myqcloud.com/live/3891_user_8b21678b_af7d?bizid=3891&txSecret=438de80aae1ec515972396b966251330&txTime=5CAD5A70";
+    String mPushUrl= "rtmp://46310.livepush.myqcloud.com/live/444444?txSecret=de2a1d318fea502d3a70f5545cece2b9&txTime=5CAF647F";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements ITXLivePushListen
     public void floatingCheck(View v){
         if (mFloatingView == null){
             mFloatingView = new FloatingView(getApplicationContext(),R.layout.view_floating);
+            mFloatingView.setPopupView(LayoutInflater.from(this).inflate(R.layout.view_content_float,null));
         }
         if (!checkPermission()){
             Toast.makeText(this,"未授予权限",Toast.LENGTH_SHORT).show();

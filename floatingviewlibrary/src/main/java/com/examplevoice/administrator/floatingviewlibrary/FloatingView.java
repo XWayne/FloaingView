@@ -27,7 +27,7 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
 
     private boolean mPopupViewShowing = false;
     private View mPopupView;
-    private OnClickListener mPopupItemListener;
+    private View.OnClickListener mPopupItemListener;
 
     public FloatingView(Context context){
         super(context);
@@ -42,18 +42,21 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
         View.inflate(context,id,this);
     }
 
-    public void show(OnClickListener clickListener){
+    public void show(View.OnClickListener clickListener){
         checkPopupView();
         mPopupItemListener = clickListener;
-        setItemClickListener();
+        setItemClickListener(mPopupView);
         showView();
     }
 
+    /**
+     * 关闭所有窗口并释放资源
+     */
     public void hide(){
         hidePopupWindow();
         hideView();
         mPopupItemListener = null;
-        clearItemListener();//清楚监听器，防止内存泄露;
+        clearItemListener(mPopupView);//清楚监听器，防止内存泄露;
     }
 
     public void setPopupView(View view){
@@ -86,7 +89,7 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
     }
 
 
-    private OnTouchListener mPopupOutSideListener=new OnTouchListener() {
+    private View.OnTouchListener mPopupOutSideListener=new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_OUTSIDE){
@@ -101,6 +104,7 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
         }
     };
     private WindowManager.LayoutParams mPopupParams ;
+
 
     private void showPopupWindow(){
         if (mPopupView==null || mPopupViewShowing){
@@ -159,33 +163,37 @@ public class FloatingView extends BaseFloatingView implements View.OnClickListen
     }
 
 
-    private void setItemClickListener(){
-        if (mPopupView!=null){
-            if (mPopupView instanceof ViewGroup){
-                ViewGroup group = (ViewGroup)mPopupView;
-                for (int i =0;i<group.getChildCount();i++){
-                    group.getChildAt(i).setOnClickListener(this);
-                }
-            }else {
-                mPopupView.setOnClickListener(this);
+    private void setItemClickListener(View view){
+        if (view == null)
+            return;
+
+        if (view instanceof ViewGroup){
+            ViewGroup group = (ViewGroup)view;
+            for (int i=0;i<group.getChildCount();i++){
+                setItemClickListener(group.getChildAt(i));
             }
+        }else {
+            view.setOnClickListener(this);
         }
+
     }
 
 
     /**
      * 清除监听器，防止内存泄露
      */
-    private void  clearItemListener(){
-        if (mPopupView!=null){
-            if (mPopupView instanceof ViewGroup){
-                ViewGroup group = (ViewGroup)mPopupView;
-                for (int i =0;i<group.getChildCount();i++){
-                    group.getChildAt(i).setOnClickListener(null);
-                }
-            }else {
-                mPopupView.setOnClickListener(null);
+    private void  clearItemListener(View view){
+
+        if (view == null)
+            return;
+
+        if (view instanceof ViewGroup){
+            ViewGroup group = (ViewGroup)view;
+            for (int i=0;i<group.getChildCount();i++){
+                clearItemListener(group.getChildAt(i));
             }
+        }else {
+            view.setOnClickListener(null);
         }
     }
 }
