@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.examplevoice.administrator.floatingviewlibrary.FloatingView;
+import com.examplevoice.administrator.floatingviewlibrary.floating_permission.FloatPermissionUtil;
 import com.tencent.rtmp.ITXLivePushListener;
 import com.tencent.rtmp.TXLiveBase;
 import com.tencent.rtmp.TXLiveConstants;
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements ITXLivePushListen
 
     //开始推流
     public void onStartClick(View v){
+        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ){
+            Toast.makeText(getApplicationContext(), "当前安卓系统版本过低，仅支持5.0及以上系统", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mPusher.startPusher(mPushUrl);
         mPusher.startScreenCapture();
     }
@@ -118,8 +123,9 @@ public class MainActivity extends AppCompatActivity implements ITXLivePushListen
             mFloatingView = new FloatingView(getApplicationContext(),R.layout.view_floating);
             mFloatingView.setPopupView(LayoutInflater.from(this).inflate(R.layout.view_content_float,null));
         }
-        if (!checkPermission()){
+        if (!FloatPermissionUtil.checkPermission(this)){
             Toast.makeText(this,"未授予权限",Toast.LENGTH_SHORT).show();
+            FloatPermissionUtil.requestPermission(this);
             return;
         }
         Button btn = (Button)v;
